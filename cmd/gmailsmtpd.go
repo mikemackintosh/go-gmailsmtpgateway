@@ -22,10 +22,17 @@ import (
 
 var gmailService *gmail.Service
 var googleConfigFile string
+var smtpListenIP string
+var smtpServerName string
+
+// Version of binary
+var Version = "dev-20161223"
 
 // init
 func init() {
 	flag.StringVar(&googleConfigFile, "o", "client.json", "Google Oauth Configuration File")
+	flag.StringVar(&smtpListenIP, "s", "127.0.0.1:2525", "SMTP Listening IP:Port")
+	flag.StringVar(&smtpServerName, "h", "GMailSMTPD."+Version, "Local SMTP server name")
 }
 
 // Generate the client
@@ -124,5 +131,6 @@ func main() {
 		log.Printf("Error: %v", err)
 	}
 
-	smtpd.ListenAndServe("127.0.0.1:2525", mailHandler, "MyServerApp", "")
+	// Listen to SMTP
+	smtpd.ListenAndServe(smtpListenIP, mailHandler, smtpServerName, "")
 }

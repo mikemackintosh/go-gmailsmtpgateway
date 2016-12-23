@@ -22,9 +22,18 @@ When the script initializes, it will give you a link to authorize access to Gmai
 **NOTE** The account that you use will always be the authenticated GMail account, and will
 override the `MAIL FROM` command from the SMTP server.
 
+By default, the SMTP server listens on `127.0.0.1:2525` but this can be changed using the `-s` flag.
+
+Example:
+
+    ./bin/gmailsmtpd -o client.json -s 0.0.0.0:25
+
+You can also change the server banner using `-h`.
+
 ## Installation
 
     make build
+
 
 ## Credits
 Credits to other sources used in the creation of this utility:
